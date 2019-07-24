@@ -1,0 +1,9 @@
+select IBY_AMOUNT_IN_WORDS.Get_Amount_In_Words(1000.200,'SAR',3,'SA') from dual
+<?xdofx:to_check_number(12345.67, 2)?>
+<?xdofx:to_check_number(12345.67, 'USD')?>
+<?xdofx:to_check_number(12345, 'JPY', 'CASE_UPPER')?>
+<?xdofx:to_check_number(12345.67, 'EUR', 'CASE_LOWER', 'DECIMAL_STYLE_WORDS')?>
+
+<?xdofx:decode(instr(21099.05,'.',1),0, to_check_number(21099.05,0,'AED'),to_check_number(rpad(substr(to_char(21099.05),instr(21999.05,'.',1)+1),2,0),0,’AED’))?>
+<?xdofx:to_check_number(Value,PaymentAmount/Currency/Code,  'DECIMAL_STYLE_WORDS')?>
+<?xdofx:decode(instr(Value,'.',1),0, to_check_number(Value,0, PaymentAmount/Currency/Code), to_check_number(Value,0, PaymentAmount/Currency/Code)||’ and ‘|| to_check_number(rpad(substr(to_char(Value),instr(Value,'.',1)+1),2,0),0,PaymentAmount/Currency/Code))?>
