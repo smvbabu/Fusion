@@ -1,0 +1,17 @@
+select xep.name,haouf.organization_id,hoif.ORG_INFORMATION1,pldg.NAME LDG_NAME, pay.payroll_id, pay.payroll_name,xep.legal_entity_id
+from hr_all_organization_units_f haouf
+,xle_entity_profiles xep
+,HR_ORGANIZATION_INFORMATION_F hoif
+,PER_LEGISLATIVE_DATA_GROUPS_TL pldg
+,pay_all_payrolls_f pay
+where haouf.legal_entity_id=xep.legal_entity_id
+and haouf.organization_id=hoif.organization_id
+and hoif.org_information1= pldg.LEGISLATIVE_DATA_GROUP_ID
+and pay.LEGISLATIVE_DATA_GROUP_ID=pldg.LEGISLATIVE_DATA_GROUP_ID
+and pay.LEGISLATIVE_DATA_GROUP_ID=hoif.org_information1
+and trunc(sysdate) between haouf.effective_start_date and haouf.effective_end_date
+and trunc(sysdate) between hoif.effective_start_date and hoif.effective_end_date
+and trunc(sysdate) between pay.effective_start_date and pay.effective_end_date
+and trunc(sysdate) between nvl(xep.effective_from,trunc(sysdate)) and nvl(xep.effective_to,trunc(sysdate))
+and hoif.ORG_INFORMATION_CONTEXT='PER_PSU_PAYROLL_INFO'
+and pldg.LANGUAGE='US'
